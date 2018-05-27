@@ -1,0 +1,58 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.js"></script>
+    <title>{{ title }}</title>
+</head>
+<body>
+qqqqqqqqqqqqqqq{{ msg }}
+<canvas id="myChart" width="500" height="400"></canvas>
+<script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js" type="text/javascript"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
+<script src="{% static 'chartjs/chart.js' %}" type="text/javascript"></script>
+{#<script src="{% mock ' ' %}" type="text/javascript"></script>#}
+<script type="text/javascript">
+    function getTime(secs) {
+        var minutes = padZero(Math.floor(secs / 60));
+        var seconds = padZero(secs - minutes * 60);
+        var time = minutes + ":" + seconds;
+        return time;
+    }
+    function padZero(num) {
+        var str = num.toString();
+        if (str.length === 1) {
+            str = '0' + str;
+        }
+        return str;
+    }
+    $(document).ready(function () {
+        var time = moment().startOf('day')
+            .seconds(23344)
+            .format('ss');
+        alert(time);
+        alert(getTime(23344));
+
+        var data = {
+            labels: ['1', '5', '10', '15', '20', '25', '30'],
+            datasets: [
+                {
+                    label: "Site Registrations in the Last 30 Days",
+                    fillColor: "rgba(220,220,220,0.2)",
+                    strokeColor: "rgba(220,220,220,1)",
+                    pointColor: "rgba(220,220,220,1)",
+                    pointStrokeColor: "#4dff18",
+                    pointHighlightFill: "#ff453a",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data: [10, 36, 12, 1, 44, 2, 11]
+                }
+            ]
+        };
+        var ctx = document.getElementById("myChart").getContext("2d");
+        var myLineChart = new Chart(ctx).Line(data);
+    });
+</script>
+
+</body>
+</html>
